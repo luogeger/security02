@@ -1,4 +1,4 @@
-package com.youyou.component;
+package com.youyou.support;
 
 public enum LoginType {
     JSON,

@@ -1,6 +1,7 @@
 package com.youyou.component;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.youyou.support.LoginType;
 import com.youyou.support.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
