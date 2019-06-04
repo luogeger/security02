@@ -12,4 +12,6 @@ import org.springframework.stereotype.Component;
 @ConfigurationProperties(prefix = "youyou.security")
 public class BrowserYml {
     private String  loginPage = "/login.html";
+
+    private LoginType loginType = LoginType.JSON;
 }

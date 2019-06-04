@@ -1,6 +1,8 @@
 package com.youyou.config;
 
 import com.youyou.component.BrowserYml;
+import com.youyou.component.MyAuthenticationFailureHandler;
+import com.youyou.component.MyAuthenticationSuccessHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +29,12 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private BrowserYml browserYml;
 
+    @Autowired
+    private MyAuthenticationSuccessHandler myAuthenticationSuccessHandler;
+
+    @Autowired
+    private MyAuthenticationFailureHandler myAuthenticationFailureHandler;
+
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -36,6 +44,8 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
                 //.loginPage(browserYml.getLoginPage())
                 .loginPage("/authentication/browser")// 不再是跳转到login.html，而是引导到controller，在里面写逻辑判断
                 .loginProcessingUrl("/default/login")
+                .successHandler(myAuthenticationSuccessHandler)
+                .failureHandler(myAuthenticationFailureHandler)
                 .and()
                 .authorizeRequests()// 下面的都是授权的配置
                 .antMatchers("/authentication/browser", browserYml.getLoginPage()).permitAll()// 这里的路径不需要身份热证

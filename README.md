@@ -121,10 +121,50 @@ http.formLogin()
     根据url/html返回json/redirect，
 ```
 
-> 登陆成功
+> 登陆成功或失败
 
+```markdown
+    实现接口
+    重写方法
+    配置到过滤器链
+```
 
-> 登陆失败
+- 成功的返回
+```json
+{
+  "authorities": [
+    {
+      "authority": "admin"
+    }
+  ],
+  "details": {
+    "remoteAddress": "127.0.0.1",
+    "sessionId": "63CB9241BED1C7DC2A652A86C443DF6A"
+  },
+  "authenticated": true,
+  "principal": {
+    "password": null,
+    "username": "youyou",
+    "authorities": [
+      {
+        "authority": "admin"
+      }
+    ],
+    "accountNonExpired": true,
+    "accountNonLocked": true,
+    "credentialsNonExpired": true,
+    "enabled": true
+  },
+  "credentials": null,
+  "name": "youyou"
+}
+```
+
+- 失败的返回, 如果是redirect返回的是白页
+
+```json
+
+```
 
 
 
