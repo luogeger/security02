@@ -113,7 +113,19 @@ http.formLogin()
 - 判断返回html还是json
 - login.html的配置权限开放，默认是使用自己的login.html
 
-> 登陆成功和失败，返回json或redirect
+> 处理不同类型的请求
+
+```markdown
+    spring-security判断是否需要身份认证，
+    引导到自定义的Controller，
+    根据url/html返回json/redirect，
+```
+
+> 登陆成功
+
+
+> 登陆失败
+
 
 
 

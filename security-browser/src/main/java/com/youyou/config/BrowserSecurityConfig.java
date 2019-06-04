@@ -33,15 +33,14 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
         logger.error(browserYml.getLoginPage());
 
         http.formLogin()
-                .loginPage(browserYml.getLoginPage())
+                //.loginPage(browserYml.getLoginPage())
+                .loginPage("/authentication/browser")// 不再是跳转到login.html，而是引导到controller，在里面写逻辑判断
                 .loginProcessingUrl("/default/login")
                 .and()
-                .authorizeRequests()
-                .antMatchers(browserYml.getLoginPage())
-                .permitAll()
-                .anyRequest()
+                .authorizeRequests()// 下面的都是授权的配置
+                .antMatchers("/authentication/browser", browserYml.getLoginPage()).permitAll()// 这里的路径不需要身份热证
+                .anyRequest()// 所有请求
                 .authenticated()// 都需要身份认证
-                .and()
-                .csrf().disable();
+                .and().csrf().disable();// 关闭防跨站攻击 -- Could not verify the provided CSRF token because your session was not found
     }
 }
