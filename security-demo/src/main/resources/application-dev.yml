@@ -1,0 +1,15 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/security?useUnicode=yes&characterEncoding=UTF-8&useSSL=false
+    username: root
+    password: 123456
+  session:
+    store-type: none # session 存储
+
+
+# security 默认配置的安全配置，如果项目里有spring-security的包，会自动做安全的配置，
+#security:
+#  basic:
+#    enabled: false
+
