@@ -54,16 +54,15 @@ http.formLogin()
         .authenticated();
 ```
 
-> Filter
+> Filter Chain
 
 - `UsernamePasswordAuthenticationFilter`
 - `BasicAuthenticationFilter`
 - // ....
+- `ExceptionTranslationFilter`
+- **FilterSecurityInterceptor**
+- **REST API**
 
-> Exception
-
-
-> FilterSecurityInterceptor
 
 ### 4-3 自定义用户认证
 
