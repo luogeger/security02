@@ -48,7 +48,11 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
                 .failureHandler(myAuthenticationFailureHandler)
                 .and()
                 .authorizeRequests()// 下面的都是授权的配置
-                .antMatchers("/authentication/browser", browserYml.getLoginPage()).permitAll()// 这里的路径不需要身份热证
+                .antMatchers(
+                        "/code/image",// 图片验证码
+                        "/authentication/browser",// 身份验证引导到自定义controller
+                        browserYml.getLoginPage()
+                        ).permitAll()// 这里的路径不需要身份热证
                 .anyRequest()// 所有请求
                 .authenticated()// 都需要身份认证
                 .and().csrf().disable();// 关闭防跨站攻击 -- Could not verify the provided CSRF token because your session was not found
