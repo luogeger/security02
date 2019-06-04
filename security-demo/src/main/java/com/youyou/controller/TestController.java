@@ -2,6 +2,8 @@ package com.youyou.controller;
 
 import com.youyou.exception.UserNotException;
 import com.youyou.pojo.User;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,8 +19,14 @@ import java.util.List;
 @RequestMapping("")
 public class TestController {
 
+
+    private Logger logger = LoggerFactory.getLogger(getClass());
+
+
+
     @GetMapping("/queryAll")
     public List<User> queryAll() {
+
         List<User> users = new ArrayList<>();
         users.add(new User());
         users.add(new User());

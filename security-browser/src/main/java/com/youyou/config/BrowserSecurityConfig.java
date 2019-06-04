@@ -1,7 +1,9 @@
 package com.youyou.config;
 
+import com.youyou.component.BrowserYml;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -22,15 +24,20 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();// 默认通过这个方法来对密码加密，也可以自定义加密对象
     }
 
+    @Autowired
+    private BrowserYml browserYml;
+
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        logger.error(browserYml.getLoginPage());
+
         http.formLogin()
-                .loginPage("/login.html")
+                .loginPage(browserYml.getLoginPage())
                 .loginProcessingUrl("/default/login")
                 .and()
                 .authorizeRequests()
-                .antMatchers("/login.html")
+                .antMatchers(browserYml.getLoginPage())
                 .permitAll()
                 .anyRequest()
                 .authenticated()// 都需要身份认证

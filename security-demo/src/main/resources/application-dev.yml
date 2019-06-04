@@ -13,3 +13,7 @@ spring:
 #  basic:
 #    enabled: false
 
+
+youyou:
+  security:
+    login-page: /demo-login.html
