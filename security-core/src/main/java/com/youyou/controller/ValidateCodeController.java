@@ -20,7 +20,7 @@ import java.util.Random;
 
 /**
  * create by luoxiaoqing
- * 获取验证码，图形验证和短信验证
+ * 获取验证码
  */
 @RestController
 @RequestMapping("/code")
@@ -87,7 +87,7 @@ public class ValidateCodeController {
 
         g.dispose();
 
-        return new ImageCode(image, sRand, 4);
+        return new ImageCode(image, sRand, 300);
     }
 
     /**

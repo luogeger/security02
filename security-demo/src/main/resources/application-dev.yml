@@ -17,5 +17,5 @@ spring:
 youyou:
   security:
     login-page: /demo-login.html
-    login-type: redirect
+    login-type: json # 统一返回json
 

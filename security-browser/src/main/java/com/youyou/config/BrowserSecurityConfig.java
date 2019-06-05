@@ -3,6 +3,7 @@ package com.youyou.config;
 import com.youyou.component.BrowserYml;
 import com.youyou.component.MyAuthenticationFailureHandler;
 import com.youyou.component.MyAuthenticationSuccessHandler;
+import com.youyou.filter.ValidateCodeFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 /**
  * create by luoxiaoqing
@@ -36,13 +38,19 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
     private MyAuthenticationFailureHandler myAuthenticationFailureHandler;
 
 
+
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         logger.error(browserYml.getLoginPage());
 
-        http.formLogin()
+        ValidateCodeFilter validateCodeFilter = new ValidateCodeFilter();
+        validateCodeFilter.setAuthenticationFailureHandler(myAuthenticationFailureHandler);
+
+        http.addFilterBefore(validateCodeFilter, UsernamePasswordAuthenticationFilter.class)// 添加图片验证码过滤器
+                .formLogin()
                 //.loginPage(browserYml.getLoginPage())
-                .loginPage("/authentication/browser")// 不再是跳转到login.html，而是引导到controller，在里面写逻辑判断
+                .loginPage("/authentication/browser")// 不再是跳转到login.html，而是引导到身份验证的自定义controller，在里面写逻辑判断
                 .loginProcessingUrl("/default/login")
                 .successHandler(myAuthenticationSuccessHandler)
                 .failureHandler(myAuthenticationFailureHandler)
@@ -50,8 +58,8 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()// 下面的都是授权的配置
                 .antMatchers(
                         "/code/image",// 图片验证码
-                        "/authentication/browser",// 身份验证引导到自定义controller
-                        browserYml.getLoginPage()
+                        "/authentication/browser",// 身份验证的自定义controller
+                        browserYml.getLoginPage()// == demo-login.html
                         ).permitAll()// 这里的路径不需要身份热证
                 .anyRequest()// 所有请求
                 .authenticated()// 都需要身份认证

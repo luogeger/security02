@@ -35,4 +35,12 @@ public class ImageCode {
         this.expireTime = LocalDateTime.now().plusSeconds(second);
     }
 
+    /**
+     * 判断session有没有过期
+     * @return
+     */
+    public boolean isExpired() {
+        return LocalDateTime.now().isAfter(expireTime);
+    }
+
 }

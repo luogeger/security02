@@ -45,7 +45,7 @@ public class BrowserSecurityController {
         if (savedRequest != null) {
             String url = savedRequest.getRedirectUrl();
 
-            System.out.println("当前访问的url："+ url);
+            logger.error("当前访问的url："+ url);
             if (StringUtils.endsWithIgnoreCase(url, ".html")) {
                 redirectStrategy.sendRedirect(req, res, BrowserYml.getLoginPage());// 重定向到login.html
             }

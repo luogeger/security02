@@ -56,12 +56,12 @@ http.formLogin()
 
 > Filter Chain
 
+- `SecurityContextPersistenceFilter`
 - `UsernamePasswordAuthenticationFilter`
 - `BasicAuthenticationFilter`
 - // ....
-- `ExceptionTranslationFilter`
+- *`ExceptionTranslationFilter`*
 - **FilterSecurityInterceptor**
-- **REST API**
 
 
 ### 4-3 自定义用户认证
@@ -166,8 +166,16 @@ http.formLogin()
 
 ```
 
+### 4-7 图形验证码
 
-
+- 设置验证码过滤器的失败处理器
+    - ``    
+- 验证码的校验加入到过滤器链
+    - `addFileter(validateCodeFilter, UsernameFilter.class)`
+- 失败后返回的信息太多
+    - `objectMapper.writeValueAsString(new Response(exception.getMessage())`    
+- 但是仍然会调用到后面的用户名验证
+    - 因为失败处理后还是执行了`filterChain.doFilter(request, response);`
 
 
 
