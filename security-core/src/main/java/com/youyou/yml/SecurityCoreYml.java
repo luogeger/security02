@@ -14,5 +14,5 @@ import org.springframework.stereotype.Component;
 public class SecurityCoreYml {
     private BrowserYml browser = new BrowserYml();
 
-
+    private ImageCode imageCode = new ImageCode();
 }

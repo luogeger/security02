@@ -1,10 +1,13 @@
 package com.youyou.controller;
 
 import com.youyou.pojo.ImageCode;
+import com.youyou.yml.SecurityCoreYml;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.social.connect.web.HttpSessionSessionStrategy;
 import org.springframework.social.connect.web.SessionStrategy;
+import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -30,6 +33,9 @@ public class ValidateCodeController {
     private static final String SESSION_KEY = "SESSION_KEY_CODE_IMAGE";
 
     private SessionStrategy sessionStrategy = new HttpSessionSessionStrategy();// session工具类
+
+    @Autowired
+    private SecurityCoreYml securityCoreYml;
 
 
     /**
@@ -57,8 +63,9 @@ public class ValidateCodeController {
      * @return
      */
     private ImageCode createImageCode(HttpServletRequest req) {
-        int width = 67;
-        int height = 23;
+
+        int width = ServletRequestUtils.getIntParameter(req, "width", securityCoreYml.getImageCode().getWidth());
+        int height = ServletRequestUtils.getIntParameter(req, "height", securityCoreYml.getImageCode().getHeight());
         BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
 
         Graphics g = image.getGraphics();
@@ -78,7 +85,7 @@ public class ValidateCodeController {
         }
 
         String sRand = "";
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < securityCoreYml.getImageCode().getLength(); i++) {
             String rand = String.valueOf(random.nextInt(10));
             sRand += rand;
             g.setColor(new Color(20 + random.nextInt(110), 20 + random.nextInt(110), 20 + random.nextInt(110)));
@@ -87,7 +94,7 @@ public class ValidateCodeController {
 
         g.dispose();
 
-        return new ImageCode(image, sRand, 300);
+        return new ImageCode(image, sRand, securityCoreYml.getImageCode().getExpiredTime());
     }
 
     /**

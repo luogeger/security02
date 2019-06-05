@@ -19,4 +19,7 @@ youyou:
     browser:
       login-page: /demo-login.html
       login-type: json # 统一返回json
+    image-code:
+      length: 5
+      expired-time: 60
 
