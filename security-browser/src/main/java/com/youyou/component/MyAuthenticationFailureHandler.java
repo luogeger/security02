@@ -3,6 +3,7 @@ package com.youyou.component;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.youyou.support.LoginType;
 import com.youyou.support.Response;
+import com.youyou.yml.SecurityCoreYml;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,13 +29,13 @@ public class MyAuthenticationFailureHandler extends SimpleUrlAuthenticationFailu
     private ObjectMapper objectMapper;
 
     @Autowired
-    private BrowserYml browserYml;
+    private SecurityCoreYml securityCoreYml;
 
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
 
         logger.error("登陆失败");
-        if (LoginType.JSON.equals(browserYml.getLoginType())) {
+        if (LoginType.JSON.equals(securityCoreYml.getBrowser().getLoginType())) {
             response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
             response.setContentType("application/json;charset=UTF-8");
             response.getWriter().write(objectMapper.writeValueAsString(new Response(exception.getMessage())));

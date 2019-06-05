@@ -16,6 +16,7 @@ spring:
 
 youyou:
   security:
-    login-page: /demo-login.html
-    login-type: json # 统一返回json
+    browser:
+      login-page: /demo-login.html
+      login-type: json # 统一返回json
 

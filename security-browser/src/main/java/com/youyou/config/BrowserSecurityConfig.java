@@ -1,9 +1,9 @@
 package com.youyou.config;
 
-import com.youyou.component.BrowserYml;
 import com.youyou.component.MyAuthenticationFailureHandler;
 import com.youyou.component.MyAuthenticationSuccessHandler;
 import com.youyou.filter.ValidateCodeFilter;
+import com.youyou.yml.SecurityCoreYml;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +29,7 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Autowired
-    private BrowserYml browserYml;
+    private SecurityCoreYml securityCoreYml;
 
     @Autowired
     private MyAuthenticationSuccessHandler myAuthenticationSuccessHandler;
@@ -42,7 +42,7 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        logger.error(browserYml.getLoginPage());
+        logger.error(securityCoreYml.getBrowser().getLoginPage());
 
         ValidateCodeFilter validateCodeFilter = new ValidateCodeFilter();
         validateCodeFilter.setAuthenticationFailureHandler(myAuthenticationFailureHandler);
@@ -59,7 +59,7 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(
                         "/code/image",// 图片验证码
                         "/authentication/browser",// 身份验证的自定义controller
-                        browserYml.getLoginPage()// == demo-login.html
+                        securityCoreYml.getBrowser().getLoginPage()// == demo-login.html
                         ).permitAll()// 这里的路径不需要身份热证
                 .anyRequest()// 所有请求
                 .authenticated()// 都需要身份认证

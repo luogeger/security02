@@ -2,6 +2,7 @@ package com.youyou.component;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.youyou.support.LoginType;
+import com.youyou.yml.SecurityCoreYml;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,14 +27,14 @@ public class MyAuthenticationSuccessHandler extends SavedRequestAwareAuthenticat
     private ObjectMapper objectMapper;
 
     @Autowired
-    private BrowserYml browserYml;
+    private SecurityCoreYml securityCoreYml;
 
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws ServletException, IOException {
         logger.info("登录成功");
 
-        if (LoginType.JSON.equals(browserYml.getLoginType())) {
+        if (LoginType.JSON.equals(securityCoreYml.getBrowser().getLoginType())) {
             response.setContentType("application/json;charset=UTF-8");
             response.getWriter().write(objectMapper.writeValueAsString(authentication));
         } else{

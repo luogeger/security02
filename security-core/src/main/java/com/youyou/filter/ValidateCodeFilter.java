@@ -35,7 +35,7 @@ public class ValidateCodeFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 
-        /** 判断登陆请求*/
+        /** 判断登陆请求：针对【/default/login】的【POST】的请求进行拦截过滤*/
         boolean flag = StringUtils.equals("/default/login", request.getRequestURI()) && StringUtils.equalsIgnoreCase(request.getMethod(), "post");
 
         /** 如果是就要验证，需要从session拿到信息，*/

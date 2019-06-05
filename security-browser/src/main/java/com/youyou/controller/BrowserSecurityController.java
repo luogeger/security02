@@ -1,7 +1,7 @@
 package com.youyou.controller;
 
-import com.youyou.component.BrowserYml;
 import com.youyou.support.Response;
+import com.youyou.yml.SecurityCoreYml;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,7 +33,7 @@ public class BrowserSecurityController {
     private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();// 工具类，做页面跳转使用
 
     @Autowired
-    public BrowserYml BrowserYml;
+    public SecurityCoreYml securityCoreYml;
 
     @RequestMapping("/authentication/browser")
     @ResponseStatus(code = HttpStatus.UNAUTHORIZED)// 如果是访问的url，返回401状态码
@@ -47,7 +47,7 @@ public class BrowserSecurityController {
 
             logger.error("当前访问的url："+ url);
             if (StringUtils.endsWithIgnoreCase(url, ".html")) {
-                redirectStrategy.sendRedirect(req, res, BrowserYml.getLoginPage());// 重定向到login.html
+                redirectStrategy.sendRedirect(req, res, securityCoreYml.getBrowser().getLoginPage());// 重定向到login.html
             }
         }
 
