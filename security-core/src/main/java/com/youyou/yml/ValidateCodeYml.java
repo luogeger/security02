@@ -7,7 +7,7 @@ import lombok.Data;
  * 验证码
  */
 @Data
-public class ValidateCode {
+public class ValidateCodeYml {
     private Integer expiredTime = 300;
 
     private Integer length = 4;

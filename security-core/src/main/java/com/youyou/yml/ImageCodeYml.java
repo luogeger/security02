@@ -7,7 +7,7 @@ import lombok.Data;
  * 图形验证码
  */
 @Data
-public class ImageCode extends ValidateCode {
+public class ImageCodeYml extends ValidateCodeYml {
     private Integer width = 67;
 
     private Integer height = 23;
