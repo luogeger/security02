@@ -12,7 +12,7 @@ public class ImageCode extends ValidateCode {
 
     private Integer height = 23;
 
-
+    private String  url;
 
 
 }

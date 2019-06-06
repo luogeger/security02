@@ -1,5 +1,6 @@
 package com.youyou.support;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 
 /**
@@ -7,7 +8,8 @@ import lombok.Data;
  * 访问url需要返回的对象
  */
 @Data
-public class Response {
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public class Response{
     private String msg;
 
     private Object data;

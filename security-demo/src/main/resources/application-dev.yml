@@ -22,4 +22,5 @@ youyou:
     image-code:
       length: 5
       expired-time: 60
+      url: /user, /user/1
 

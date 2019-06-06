@@ -45,7 +45,9 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
         logger.error(securityCoreYml.getBrowser().getLoginPage());
 
         ValidateCodeFilter validateCodeFilter = new ValidateCodeFilter();
-        validateCodeFilter.setAuthenticationFailureHandler(myAuthenticationFailureHandler);
+        validateCodeFilter.setAuthenticationFailureHandler(myAuthenticationFailureHandler);// 添加校验失败的处理器
+        validateCodeFilter.setSecurityCoreYml(securityCoreYml);// :: implement InitializingBean
+        validateCodeFilter.afterPropertiesSet();// 初始化成员变量值
 
         http.addFilterBefore(validateCodeFilter, UsernamePasswordAuthenticationFilter.class)// 添加图片验证码过滤器
                 .formLogin()
